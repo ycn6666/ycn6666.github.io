@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ycn6666.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1、id定位：find_element_by_id()。通过标签的id属性来定位 2、name定位:find_element_by_name()。通过标签的name属性来定位 3、class定位:find_element_by_class_name()。通过标签的class属性来定位 4、tag定位:find_element_by_tag_name()。通过标签的名称来定位，比如input是输入、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium3元素定位">
+<meta property="og:url" content="https://ycn6666.github.io/2020/05/26/%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D/index.html">
+<meta property="og:site_name" content="有情怀的学习网站">
+<meta property="og:description" content="1、id定位：find_element_by_id()。通过标签的id属性来定位 2、name定位:find_element_by_name()。通过标签的name属性来定位 3、class定位:find_element_by_class_name()。通过标签的class属性来定位 4、tag定位:find_element_by_tag_name()。通过标签的名称来定位，比如input是输入、">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-26T02:25:24.000Z">
+<meta property="article:modified_time" content="2020-05-28T02:18:34.357Z">
+<meta property="article:author" content="Yang C">
+<meta property="article:tag" content="Selenium">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ycn6666.github.io/2020/05/26/%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Selenium3元素定位 | 有情怀的学习网站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">有情怀的学习网站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Together</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ycn6666.github.io/2020/05/26/%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Yang C">
+      <meta itemprop="description" content="有情怀的知识体系构建">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="有情怀的学习网站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Selenium3元素定位
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-26 10:25:24" itemprop="dateCreated datePublished" datetime="2020-05-26T10:25:24+08:00">2020-05-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-28 10:18:34" itemprop="dateModified" datetime="2020-05-28T10:18:34+08:00">2020-05-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Selenium/" itemprop="url" rel="index"><span itemprop="name">Selenium</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>1、id定位：find_element_by_id()。通过标签的id属性来定位</p>
+<p>2、name定位:find_element_by_name()。通过标签的name属性来定位</p>
+<p>3、class定位:find_element_by_class_name()。通过标签的class属性来定位</p>
+<p>4、tag定位:find_element_by_tag_name()。通过标签的名称来定位，比如input是输入、table是表格等等。一个tag往往用来定义一类功能。</p>
+<p>5、link定位以及partial_link定位:find_element_by_link_text() 、find_element_by_partial_link_text()。通过超链接的全部或部分文本内容进行定位</p>
+<p>6、xpath定位:find_element_by_xpath()。</p>
+<p>7、css定位:find_element_by_css_selector()</p>
+<a id="more"></a>
+
+<p>前五种适用于：在当前页面中，每个元素都有一个唯一的id或name或class或超链接文本的属性，那么我们就可以通过这个唯一的属性值来定位他们。</p>
+<p>大部分人在使用selenium定位元素时，用的是xpath定位，因为xpath基本能解决定位的需求。</p>
+<p>css定位往往被忽略掉了，其实css定位也有它的价值，css定位更快，语法更简洁。<br> 一：css:属性定位</p>
+<p>1、css可以通过元素的id、class、标签这三个常规属性直接定位，如下：<br> ①. css用#号表示id属性，如：<br> id=“kw” 可以写成：#kw<br> ②. css用.表示class属性，如：<br> class=”s_ipt”可以写成：.s_ipt<br> ③. css直接用标签名称，无任何标识符，如：input</p>
+<p>二：css：其他属性<br> 1、css除了上述以外，也可以通过其他属性定位，如下：<br> ①. css通过name属性定位：<br> driver.find_element(By.CSS_SELECTOR,”[name=’wd’]”)<br> ②. css通过autocomplete属性定位：<br> driver.find_element(By. CSS_SELECTOR,”[autocomplete=’off’]”)<br> ③.css通过type属性定位:<br> driver.find_element(By.CSS_SELECTOR,”[type=’text’]”)</p>
+<p>三：css：标签<br> 1、css页可以通过标签与属性的组合来定位元素，如下：<br> ①. css通过标签与class属性的组合定位driver.find_element(By.CSS_SELECTOR,”input.s_ipt”)<br> ②. css通过标签与id属性的组合定位driver.find_element(By.CSS_SELECTOR,”input#kw”)<br> ③. css通过标签与其他属性组合定位driver.find_element(By.CSS_SELECTOR,”input[id=’kw’]”)</p>
+<p>四：css:层级关系<br> 1、如：//form[@id=‘form’]/span/input和//form[@class=‘fm’]/span/input<br> ①. css通过层级关系定位driver.find_element(By.CSS_SELECTOR,”form#form&gt;span&gt;input”)<br> ②. css通过层级关系定位driver.find_element(By.CSS_SELECTOR,”form.fm&gt;span&gt;input”)</p>
+<p>五：css：索引<br> 1、css也可以通过索引option：nth-child(1)来定位子元素，如下：<br> ①. 选择第一个子元素driver.find_element(By.CSS_SELECTOR,”select#nr&gt;option:nth-child(1)”)<br> ②. 选择第二个子元素driver.find_element(By.CSS_SELECTOR,”select#nr&gt;option:nth-child(2)”)<br> ③. 选择第三个子元素driver.find_element(By.CSS_SELECTOR,”select#nr&gt;option:nth-child(3)”)</p>
+<p>六：css：逻辑运算<br> 1、css同时匹配两个属性，不需要and关键字driver.find_element(By.CSS_SELECTOR,”input[id=’kw’][name=’wd’]”)</p>
+<p>七：css：模糊匹配driver.find_element(By.CSS_SELECTOR,”input:contains(‘kw’)”)</p>
+<p>一、xpath：属性定位<br> 1、xpath也可以通过元素的id、name、class这些属性定位，如下：<br> ①. 用xpath通过id属性定位<br> driver.find_element(By.XPATH,”//<em>[@id=’kw’]”)<br> ②. 用xpath通过name属性定位<br> driver.find_element(By.XPATH,”//</em>[@name=’wd’]”)<br> ③. 用xpath通过class属性定位<br> driver.find_element(By.XPATH,”//*[@class=’s_ipt’]”)</p>
+<p>二、xpath：其他属性<br> 1、没有上述属性，可以通过其他属性定位，如下：<br> driver.find_element(By.XPATH,”//*[@autocomplete=’off’]”)</p>
+<p>三、xpath：标签<br> 1、如果同一个属性，同名的比较多，可以通过标签筛选下<br> 2、如果不想制定标签名称，可以用号表示任意标签<br> 3、如果想制定具体某个标签，就可以直接写标签名称<br> ①. 用xpath通过其他属性定位driver.find_element(By.XPATH,”//input[@autocomplete=’off’]”)<br> ②. 用xpath通过id属性定位driver.find_element(By.XPATH,”//input[@id=’kw’]”)<br> ③. 用xpath通过name属性定位driver.find_element(By.XPATH,”//name[@id=’wd’]”)</p>
+<p>四、xpath：层级<br> 1、如果一个元素，他的属性不明显，无法直接定位，可以先找到他的父元素<br> 2、找到父元素，再找下一级就能定位<br> ①. 通过定位父元素来定位input输入框driver.find_element(By.XPATH,”//span[@id=’s_kw_wrap’]/input”)<br> ②. 通过定位爷元素来定位input输入框driver.find_element(By.XPATH,”//form[@id=’form’]/span/input”)</p>
+<p>五、xpath：索引<br> 1、如果一个元素和他同级的标签一样，无法通过层级定位<br> 2、可以通过排序定位<br> ①. 用xpath定位第一位driver.find_element(By.XPATH,”//select[@id=’nr’]/option[1]”)<br> ②. 用xpath定位第二位driver.find_element(By.XPATH,”//select[@id=’nr’]/option[2]”)<br> ③. 用xpath定位第三位driver.find_element(By.XPATH,”//select[@id=’nr’]/option[3]”)</p>
+<p>六、xpath：逻辑运算<br> 1、xpath还有一个比较强的功能，是可以多个属性逻辑运算的，可以支持and、or、not<br> 2、一般用的比较多的是and运算，同时满足两个属性driver.find_element(By.XPATH,”//select[@id=’nr’ and @autocomplete=’off’]”)<br> 七、xpath：模糊匹配<br> 1、xpath强大的模糊匹配<br> 2、掌握了模糊匹配功能，基本上没有定位不到的<br> 3、by_partial_link，模糊匹配定位<br> driver.find_element(By.XPATH,”//*[contains(text(),’hao123’)]”)</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Selenium/" rel="tag"># Selenium</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/26/selenium/" rel="next" title="Selenium3工作原理及环境搭建">
+      Selenium3工作原理及环境搭建 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang C"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Yang C</p>
+  <div class="site-description" itemprop="description">有情怀的知识体系构建</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang C</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">5k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
