@@ -1,83 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>Pycharm2020版本激活</title>
-      <link href="/2020/06/08/Pycharm2020%E7%89%88%E6%9C%AC%E6%BF%80%E6%B4%BB/"/>
-      <url>/2020/06/08/Pycharm2020%E7%89%88%E6%9C%AC%E6%BF%80%E6%B4%BB/</url>
-      
-        <content type="html"><![CDATA[<p>title: Pycharm2020版本激活<br>date: 2020-05-29 10:25:24<br>categories: Pycharm<br>tags: [Pycharm]<br>comments: false</p><h1 id="Pycharm永久激活"><a href="#Pycharm永久激活" class="headerlink" title="Pycharm永久激活"></a>Pycharm永久激活</h1><p>1、官网下载专业版 <a href="https://www.jetbrains.com/pycharm/" target="_blank" rel="noopener">https://www.jetbrains.com/pycharm/</a></p><p>2、下载与之匹配的jar包 百度网盘链接：<a href="https://pan.baidu.com/s/1EOjpH4kkv_5dsyWObROMZg" target="_blank" rel="noopener">https://pan.baidu.com/s/1EOjpH4kkv_5dsyWObROMZg</a></p><p>​       提取码：us7z</p><p>3、将<code>jetbrains-agent.jar</code>文件复制到pycharm的安装路径的lib文件夹中。</p><p>4、打开pycharm，选择免费试用。若已经过了试用期，可以点击第2步中的第2个文件夹 “reset_eval” 中的 “reset_jetbrains_eval_windows.vbs” 来重置使用状态）。</p><p>5、在pycharm创建一个项目，点击顶部菜单栏的 “Help”，点击 “Edit Custom VM Options”</p><p>6、找到刚刚 pycharm2020.1 的安装路径下的<code>lib</code>文件夹 下的 <code>jetbrains-agent.jar</code>，复制好安装路径</p><p>7、然后回到 pycharm界面，复制进去，格式如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-javaagent:D:\software\PyCharm 2020.1.1\lib\jetbrains-agent.jar</span><br></pre></td></tr></table></figure><p><img src="/.io//C:%5CUsers%5CAdmin%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200608152530746.png" alt="image-20200608152530746"></p><p>8、然后把这个之前解压的 <code>jetbrains-agent.jar</code> 直接拖进 pycharm，点击restart重启pycharm</p><p>9、打开并复制第2步 “激活码（备用）.txt”中的激活码，点击pycharm菜单栏中Help中的Register</p><p>10、点击 “Activation code”，把复制好的激活码粘贴进去，点击 “Activate” 激活</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>selenium常用Api</title>
-      <link href="/2020/05/28/selenium%E5%B8%B8%E7%94%A8Api/"/>
-      <url>/2020/05/28/selenium%E5%B8%B8%E7%94%A8Api/</url>
-      
-        <content type="html"><![CDATA[<p>selenium常用Api</p><p>一、获取各个属性值</p><p>1、driver.current_url</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Selenium3工作原理及环境搭建</title>
-      <link href="/2020/05/26/selenium/"/>
-      <url>/2020/05/26/selenium/</url>
-      
-        <content type="html"><![CDATA[<p>一、selenium简介</p><p>selenium是一个应用于web应用程序的自动化测试工具。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera等。</p><p>selenium2主要是集成了webdriver，webdriver是按照server-client的经典模式设计的。server：即remote server，可以是任意浏览器，它的职责是等待client发送请求并作出响应。client端简单说来就是我们的测试代码：比如打开浏览器，转跳到特定的url等操作是以http请求的方式发送给被server端（也就是被测浏览器）server接受请求，并执行相应操作，并在response中返回执行状态、返回值等信息；</p><p>主要功能包括：测试与浏览器的兼容性——测试你的应用程序看是否能够很好得工作在不同浏览器和操作系统之上。</p><p>​              测试系统功能——创建回归测试检验软件功能和用户需求。</p><a id="more"></a><p>二、webdriver原理</p><p>我们使用selenium实现自动化测试，需要准备三个基础条件</p><p>1、测试脚本，可以是python or Java编写的脚本程序(也可以叫做client端)</p><p>2、浏览器驱动，不同的浏览器使用不同的webdriver驱动程序且需要对应浏览器的版本</p><p>3、浏览器</p><p>实现：启动浏览器后，selenium-webdriver会将目标浏览器绑定到特定的端口，启动后的浏览器则作为webdriver的remote server。</p><p>客户端(也就是测试脚本)，发送HTTP请求给sever端（通信协议：The WebDriver Wire Protocol，在HTTP request的body中，会以WebDriver Wire协议规定的JSON格式的字符串来告诉Selenium我们希望浏览器接下来做什么事情）。</p><p>Sever端需要依赖原生的浏览器组件，转化Web Service的命令为浏览器的调用来完成操作。</p><p>三、环境搭建</p><p>我以谷歌浏览器为例子。若是使用其他浏览器，则下载相应的浏览器及驱动即可。</p><p>1、首先安装python。推荐安装python3，官网自行下载安装即可。</p><p>2、安装python后，pip install selenium,安装selenium包。</p><p>3、谷歌浏览器以及chrome驱动。驱动下载地址：<a href="http://npm.taobao.org/mirrors/chromedriver/，选择对应的谷歌版本的驱动下载即可。驱动可以直接丢在python的安装目录下或者单独配置环境变量。" target="_blank" rel="noopener">http://npm.taobao.org/mirrors/chromedriver/，选择对应的谷歌版本的驱动下载即可。驱动可以直接丢在python的安装目录下或者单独配置环境变量。</a></p><p>在此步骤中可以关闭谷歌浏览器的自动更新，不然更新之后你下载的驱动可能用不了了。</p><p>四、测试</p><p>在pycharm中建立python文件</p><p>输入如下代码 如果能正常打开浏览器说明环境已经大功告成了！</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver </span><br><span class="line">driver = webdriver.Chrome()</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>Pycharm2020版本激活</title>
+    <url>/2020/06/08/Pycharm2020%E7%89%88%E6%9C%AC%E6%BF%80%E6%B4%BB/</url>
+    <content><![CDATA[<p>title: Pycharm2020版本激活<br>date: 2020-05-29 10:25:24<br>categories: Pycharm<br>tags: [Pycharm]<br>comments: false</p>
+<h1 id="Pycharm永久激活"><a href="#Pycharm永久激活" class="headerlink" title="Pycharm永久激活"></a>Pycharm永久激活</h1><p>1、官网下载专业版 <a href="https://www.jetbrains.com/pycharm/" target="_blank" rel="noopener">https://www.jetbrains.com/pycharm/</a></p>
+<p>2、下载与之匹配的jar包 百度网盘链接：<a href="https://pan.baidu.com/s/1EOjpH4kkv_5dsyWObROMZg" target="_blank" rel="noopener">https://pan.baidu.com/s/1EOjpH4kkv_5dsyWObROMZg</a></p>
+<p>​       提取码：us7z</p>
+<p>3、将<code>jetbrains-agent.jar</code>文件复制到pycharm的安装路径的lib文件夹中。</p>
+<p>4、打开pycharm，选择免费试用。若已经过了试用期，可以点击第2步中的第2个文件夹 “reset_eval” 中的 “reset_jetbrains_eval_windows.vbs” 来重置使用状态）。</p>
+<p>5、在pycharm创建一个项目，点击顶部菜单栏的 “Help”，点击 “Edit Custom VM Options”</p>
+<p>6、找到刚刚 pycharm2020.1 的安装路径下的<code>lib</code>文件夹 下的 <code>jetbrains-agent.jar</code>，复制好安装路径</p>
+<p>7、然后回到 pycharm界面，复制进去，格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-javaagent:D:\software\PyCharm 2020.1.1\lib\jetbrains-agent.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="/.io//C:%5CUsers%5CAdmin%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200608152530746.png" alt="image-20200608152530746"></p>
+<p>8、然后把这个之前解压的 <code>jetbrains-agent.jar</code> 直接拖进 pycharm，点击restart重启pycharm</p>
+<p>9、打开并复制第2步 “激活码（备用）.txt”中的激活码，点击pycharm菜单栏中Help中的Register</p>
+<p>10、点击 “Activation code”，把复制好的激活码粘贴进去，点击 “Activate” 激活</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Selenium3工作原理及环境搭建</title>
+    <url>/2020/05/26/selenium/</url>
+    <content><![CDATA[<p>一、selenium简介</p>
+<p>selenium是一个应用于web应用程序的自动化测试工具。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera等。</p>
+<p>selenium2主要是集成了webdriver，webdriver是按照server-client的经典模式设计的。server：即remote server，可以是任意浏览器，它的职责是等待client发送请求并作出响应。client端简单说来就是我们的测试代码：比如打开浏览器，转跳到特定的url等操作是以http请求的方式发送给被server端（也就是被测浏览器）server接受请求，并执行相应操作，并在response中返回执行状态、返回值等信息；</p>
+<p>主要功能包括：测试与浏览器的兼容性——测试你的应用程序看是否能够很好得工作在不同浏览器和操作系统之上。</p>
+<p>​              测试系统功能——创建回归测试检验软件功能和用户需求。</p>
+<a id="more"></a>
+
+<p>二、webdriver原理</p>
+<p>我们使用selenium实现自动化测试，需要准备三个基础条件</p>
+<p>1、测试脚本，可以是python or Java编写的脚本程序(也可以叫做client端)</p>
+<p>2、浏览器驱动，不同的浏览器使用不同的webdriver驱动程序且需要对应浏览器的版本</p>
+<p>3、浏览器</p>
+<p>实现：启动浏览器后，selenium-webdriver会将目标浏览器绑定到特定的端口，启动后的浏览器则作为webdriver的remote server。</p>
+<p>客户端(也就是测试脚本)，发送HTTP请求给sever端（通信协议：The WebDriver Wire Protocol，在HTTP request的body中，会以WebDriver Wire协议规定的JSON格式的字符串来告诉Selenium我们希望浏览器接下来做什么事情）。</p>
+<p>Sever端需要依赖原生的浏览器组件，转化Web Service的命令为浏览器的调用来完成操作。</p>
+<p>三、环境搭建</p>
+<p>我以谷歌浏览器为例子。若是使用其他浏览器，则下载相应的浏览器及驱动即可。</p>
+<p>1、首先安装python。推荐安装python3，官网自行下载安装即可。</p>
+<p>2、安装python后，pip install selenium,安装selenium包。</p>
+<p>3、谷歌浏览器以及chrome驱动。驱动下载地址：<a href="http://npm.taobao.org/mirrors/chromedriver/，选择对应的谷歌版本的驱动下载即可。驱动可以直接丢在python的安装目录下或者单独配置环境变量。" target="_blank" rel="noopener">http://npm.taobao.org/mirrors/chromedriver/，选择对应的谷歌版本的驱动下载即可。驱动可以直接丢在python的安装目录下或者单独配置环境变量。</a></p>
+<p>在此步骤中可以关闭谷歌浏览器的自动更新，不然更新之后你下载的驱动可能用不了了。</p>
+<p>四、测试</p>
+<p>在pycharm中建立python文件</p>
+<p>输入如下代码 如果能正常打开浏览器说明环境已经大功告成了！</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver </span><br><span class="line">driver = webdriver.Chrome()</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
       <categories>
-          
-          <category> Selenium </category>
-          
+        <category>Selenium</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Selenium </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Selenium3元素定位</title>
-      <link href="/2020/05/26/%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D/"/>
-      <url>/2020/05/26/%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D/</url>
-      
-        <content type="html"><![CDATA[<p>1、id定位：find_element_by_id()。通过标签的id属性来定位</p><p>2、name定位:find_element_by_name()。通过标签的name属性来定位</p><p>3、class定位:find_element_by_class_name()。通过标签的class属性来定位</p><p>4、tag定位:find_element_by_tag_name()。通过标签的名称来定位，比如input是输入、table是表格等等。一个tag往往用来定义一类功能。</p><p>5、link定位以及partial_link定位:find_element_by_link_text() 、find_element_by_partial_link_text()。通过超链接的全部或部分文本内容进行定位</p><p>6、xpath定位:find_element_by_xpath()。</p><p>7、css定位:find_element_by_css_selector()</p><a id="more"></a><p>前五种适用于：在当前页面中，每个元素都有一个唯一的id或name或class或超链接文本的属性，那么我们就可以通过这个唯一的属性值来定位他们。</p><p>大部分人在使用selenium定位元素时，用的是xpath定位，因为xpath基本能解决定位的需求。</p><p>css定位往往被忽略掉了，其实css定位也有它的价值，css定位更快，语法更简洁。<br> 一：css:属性定位</p><p>1、css可以通过元素的id、class、标签这三个常规属性直接定位，如下：<br> ①. css用#号表示id属性，如：<br> id=“kw” 可以写成：#kw<br> ②. css用.表示class属性，如：<br> class=”s_ipt”可以写成：.s_ipt<br> ③. css直接用标签名称，无任何标识符，如：input</p><p>二：css：其他属性<br> 1、css除了上述以外，也可以通过其他属性定位，如下：<br> ①. css通过name属性定位：<br> driver.find_element(By.CSS_SELECTOR,”[name=’wd’]”)<br> ②. css通过autocomplete属性定位：<br> driver.find_element(By. CSS_SELECTOR,”[autocomplete=’off’]”)<br> ③.css通过type属性定位:<br> driver.find_element(By.CSS_SELECTOR,”[type=’text’]”)</p><p>三：css：标签<br> 1、css页可以通过标签与属性的组合来定位元素，如下：<br> ①. css通过标签与class属性的组合定位driver.find_element(By.CSS_SELECTOR,”input.s_ipt”)<br> ②. css通过标签与id属性的组合定位driver.find_element(By.CSS_SELECTOR,”input#kw”)<br> ③. css通过标签与其他属性组合定位driver.find_element(By.CSS_SELECTOR,”input[id=’kw’]”)</p><p>四：css:层级关系<br> 1、如：//form[@id=‘form’]/span/input和//form[@class=‘fm’]/span/input<br> ①. css通过层级关系定位driver.find_element(By.CSS_SELECTOR,”form#form&gt;span&gt;input”)<br> ②. css通过层级关系定位driver.find_element(By.CSS_SELECTOR,”form.fm&gt;span&gt;input”)</p><p>五：css：索引<br> 1、css也可以通过索引option：nth-child(1)来定位子元素，如下：<br> ①. 选择第一个子元素driver.find_element(By.CSS_SELECTOR,”select#nr&gt;option:nth-child(1)”)<br> ②. 选择第二个子元素driver.find_element(By.CSS_SELECTOR,”select#nr&gt;option:nth-child(2)”)<br> ③. 选择第三个子元素driver.find_element(By.CSS_SELECTOR,”select#nr&gt;option:nth-child(3)”)</p><p>六：css：逻辑运算<br> 1、css同时匹配两个属性，不需要and关键字driver.find_element(By.CSS_SELECTOR,”input[id=’kw’][name=’wd’]”)</p><p>七：css：模糊匹配driver.find_element(By.CSS_SELECTOR,”input:contains(‘kw’)”)</p><p>一、xpath：属性定位<br> 1、xpath也可以通过元素的id、name、class这些属性定位，如下：<br> ①. 用xpath通过id属性定位<br> driver.find_element(By.XPATH,”//<em>[@id=’kw’]”)<br> ②. 用xpath通过name属性定位<br> driver.find_element(By.XPATH,”//</em>[@name=’wd’]”)<br> ③. 用xpath通过class属性定位<br> driver.find_element(By.XPATH,”//*[@class=’s_ipt’]”)</p><p>二、xpath：其他属性<br> 1、没有上述属性，可以通过其他属性定位，如下：<br> driver.find_element(By.XPATH,”//*[@autocomplete=’off’]”)</p><p>三、xpath：标签<br> 1、如果同一个属性，同名的比较多，可以通过标签筛选下<br> 2、如果不想制定标签名称，可以用号表示任意标签<br> 3、如果想制定具体某个标签，就可以直接写标签名称<br> ①. 用xpath通过其他属性定位driver.find_element(By.XPATH,”//input[@autocomplete=’off’]”)<br> ②. 用xpath通过id属性定位driver.find_element(By.XPATH,”//input[@id=’kw’]”)<br> ③. 用xpath通过name属性定位driver.find_element(By.XPATH,”//name[@id=’wd’]”)</p><p>四、xpath：层级<br> 1、如果一个元素，他的属性不明显，无法直接定位，可以先找到他的父元素<br> 2、找到父元素，再找下一级就能定位<br> ①. 通过定位父元素来定位input输入框driver.find_element(By.XPATH,”//span[@id=’s_kw_wrap’]/input”)<br> ②. 通过定位爷元素来定位input输入框driver.find_element(By.XPATH,”//form[@id=’form’]/span/input”)</p><p>五、xpath：索引<br> 1、如果一个元素和他同级的标签一样，无法通过层级定位<br> 2、可以通过排序定位<br> ①. 用xpath定位第一位driver.find_element(By.XPATH,”//select[@id=’nr’]/option[1]”)<br> ②. 用xpath定位第二位driver.find_element(By.XPATH,”//select[@id=’nr’]/option[2]”)<br> ③. 用xpath定位第三位driver.find_element(By.XPATH,”//select[@id=’nr’]/option[3]”)</p><p>六、xpath：逻辑运算<br> 1、xpath还有一个比较强的功能，是可以多个属性逻辑运算的，可以支持and、or、not<br> 2、一般用的比较多的是and运算，同时满足两个属性driver.find_element(By.XPATH,”//select[@id=’nr’ and @autocomplete=’off’]”)<br> 七、xpath：模糊匹配<br> 1、xpath强大的模糊匹配<br> 2、掌握了模糊匹配功能，基本上没有定位不到的<br> 3、by_partial_link，模糊匹配定位<br> driver.find_element(By.XPATH,”//*[contains(text(),’hao123’)]”)</p>]]></content>
-      
-      
+      <tags>
+        <tag>Selenium</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>selenium常用Api</title>
+    <url>/2020/05/28/selenium%E5%B8%B8%E7%94%A8Api/</url>
+    <content><![CDATA[<p>selenium常用Api</p>
+<p>一、获取各个属性值</p>
+<p>1、driver.current_url</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Selenium3元素定位</title>
+    <url>/2020/05/26/%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D/</url>
+    <content><![CDATA[<p>1、id定位：find_element_by_id()。通过标签的id属性来定位</p>
+<p>2、name定位:find_element_by_name()。通过标签的name属性来定位</p>
+<p>3、class定位:find_element_by_class_name()。通过标签的class属性来定位</p>
+<p>4、tag定位:find_element_by_tag_name()。通过标签的名称来定位，比如input是输入、table是表格等等。一个tag往往用来定义一类功能。</p>
+<p>5、link定位以及partial_link定位:find_element_by_link_text() 、find_element_by_partial_link_text()。通过超链接的全部或部分文本内容进行定位</p>
+<p>6、xpath定位:find_element_by_xpath()。</p>
+<p>7、css定位:find_element_by_css_selector()</p>
+<a id="more"></a>
+
+<p>前五种适用于：在当前页面中，每个元素都有一个唯一的id或name或class或超链接文本的属性，那么我们就可以通过这个唯一的属性值来定位他们。</p>
+<p>大部分人在使用selenium定位元素时，用的是xpath定位，因为xpath基本能解决定位的需求。</p>
+<p>css定位往往被忽略掉了，其实css定位也有它的价值，css定位更快，语法更简洁。<br> 一：css:属性定位</p>
+<p>1、css可以通过元素的id、class、标签这三个常规属性直接定位，如下：<br> ①. css用#号表示id属性，如：<br> id=“kw” 可以写成：#kw<br> ②. css用.表示class属性，如：<br> class=”s_ipt”可以写成：.s_ipt<br> ③. css直接用标签名称，无任何标识符，如：input</p>
+<p>二：css：其他属性<br> 1、css除了上述以外，也可以通过其他属性定位，如下：<br> ①. css通过name属性定位：<br> driver.find_element(By.CSS_SELECTOR,”[name=’wd’]”)<br> ②. css通过autocomplete属性定位：<br> driver.find_element(By. CSS_SELECTOR,”[autocomplete=’off’]”)<br> ③.css通过type属性定位:<br> driver.find_element(By.CSS_SELECTOR,”[type=’text’]”)</p>
+<p>三：css：标签<br> 1、css页可以通过标签与属性的组合来定位元素，如下：<br> ①. css通过标签与class属性的组合定位driver.find_element(By.CSS_SELECTOR,”input.s_ipt”)<br> ②. css通过标签与id属性的组合定位driver.find_element(By.CSS_SELECTOR,”input#kw”)<br> ③. css通过标签与其他属性组合定位driver.find_element(By.CSS_SELECTOR,”input[id=’kw’]”)</p>
+<p>四：css:层级关系<br> 1、如：//form[@id=‘form’]/span/input和//form[@class=‘fm’]/span/input<br> ①. css通过层级关系定位driver.find_element(By.CSS_SELECTOR,”form#form&gt;span&gt;input”)<br> ②. css通过层级关系定位driver.find_element(By.CSS_SELECTOR,”form.fm&gt;span&gt;input”)</p>
+<p>五：css：索引<br> 1、css也可以通过索引option：nth-child(1)来定位子元素，如下：<br> ①. 选择第一个子元素driver.find_element(By.CSS_SELECTOR,”select#nr&gt;option:nth-child(1)”)<br> ②. 选择第二个子元素driver.find_element(By.CSS_SELECTOR,”select#nr&gt;option:nth-child(2)”)<br> ③. 选择第三个子元素driver.find_element(By.CSS_SELECTOR,”select#nr&gt;option:nth-child(3)”)</p>
+<p>六：css：逻辑运算<br> 1、css同时匹配两个属性，不需要and关键字driver.find_element(By.CSS_SELECTOR,”input[id=’kw’][name=’wd’]”)</p>
+<p>七：css：模糊匹配driver.find_element(By.CSS_SELECTOR,”input:contains(‘kw’)”)</p>
+<p>一、xpath：属性定位<br> 1、xpath也可以通过元素的id、name、class这些属性定位，如下：<br> ①. 用xpath通过id属性定位<br> driver.find_element(By.XPATH,”//<em>[@id=’kw’]”)<br> ②. 用xpath通过name属性定位<br> driver.find_element(By.XPATH,”//</em>[@name=’wd’]”)<br> ③. 用xpath通过class属性定位<br> driver.find_element(By.XPATH,”//*[@class=’s_ipt’]”)</p>
+<p>二、xpath：其他属性<br> 1、没有上述属性，可以通过其他属性定位，如下：<br> driver.find_element(By.XPATH,”//*[@autocomplete=’off’]”)</p>
+<p>三、xpath：标签<br> 1、如果同一个属性，同名的比较多，可以通过标签筛选下<br> 2、如果不想制定标签名称，可以用号表示任意标签<br> 3、如果想制定具体某个标签，就可以直接写标签名称<br> ①. 用xpath通过其他属性定位driver.find_element(By.XPATH,”//input[@autocomplete=’off’]”)<br> ②. 用xpath通过id属性定位driver.find_element(By.XPATH,”//input[@id=’kw’]”)<br> ③. 用xpath通过name属性定位driver.find_element(By.XPATH,”//name[@id=’wd’]”)</p>
+<p>四、xpath：层级<br> 1、如果一个元素，他的属性不明显，无法直接定位，可以先找到他的父元素<br> 2、找到父元素，再找下一级就能定位<br> ①. 通过定位父元素来定位input输入框driver.find_element(By.XPATH,”//span[@id=’s_kw_wrap’]/input”)<br> ②. 通过定位爷元素来定位input输入框driver.find_element(By.XPATH,”//form[@id=’form’]/span/input”)</p>
+<p>五、xpath：索引<br> 1、如果一个元素和他同级的标签一样，无法通过层级定位<br> 2、可以通过排序定位<br> ①. 用xpath定位第一位driver.find_element(By.XPATH,”//select[@id=’nr’]/option[1]”)<br> ②. 用xpath定位第二位driver.find_element(By.XPATH,”//select[@id=’nr’]/option[2]”)<br> ③. 用xpath定位第三位driver.find_element(By.XPATH,”//select[@id=’nr’]/option[3]”)</p>
+<p>六、xpath：逻辑运算<br> 1、xpath还有一个比较强的功能，是可以多个属性逻辑运算的，可以支持and、or、not<br> 2、一般用的比较多的是and运算，同时满足两个属性driver.find_element(By.XPATH,”//select[@id=’nr’ and @autocomplete=’off’]”)<br> 七、xpath：模糊匹配<br> 1、xpath强大的模糊匹配<br> 2、掌握了模糊匹配功能，基本上没有定位不到的<br> 3、by_partial_link，模糊匹配定位<br> driver.find_element(By.XPATH,”//*[contains(text(),’hao123’)]”)</p>
+]]></content>
       <categories>
-          
-          <category> Selenium </category>
-          
+        <category>Selenium</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Selenium </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>Selenium</tag>
+      </tags>
+  </entry>
 </search>
