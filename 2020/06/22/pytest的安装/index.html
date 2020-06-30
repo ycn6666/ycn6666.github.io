@@ -20,19 +20,32 @@
     var CONFIG = {"hostname":"ycn6666.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="selenium常用Api 一、获取各个属性值 1、driver.current_url">
+  <meta name="description" content="Pytest加allure环境搭建pytest的安装:windows下: 1pip install pytest  linux下: 1pip install pytest  安装pytest-allure-adaptor插件windows下: 1pip install pytest-allure-adaptor">
 <meta property="og:type" content="article">
-<meta property="og:title" content="selenium常用Api">
-<meta property="og:url" content="https://ycn6666.github.io/2020/05/28/selenium%E5%B8%B8%E7%94%A8Api/index.html">
+<meta property="og:title" content="Pytest+allure环境搭建(一)">
+<meta property="og:url" content="https://ycn6666.github.io/2020/06/22/pytest%E7%9A%84%E5%AE%89%E8%A3%85/index.html">
 <meta property="og:site_name" content="有情怀的学习网站">
-<meta property="og:description" content="selenium常用Api 一、获取各个属性值 1、driver.current_url">
+<meta property="og:description" content="Pytest加allure环境搭建pytest的安装:windows下: 1pip install pytest  linux下: 1pip install pytest  安装pytest-allure-adaptor插件windows下: 1pip install pytest-allure-adaptor">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-28T05:58:52.467Z">
-<meta property="article:modified_time" content="2020-05-28T05:58:52.601Z">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/78005817.jpg?ynotemdtimestamp=1592795250655">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/10734144.jpg?ynotemdtimestamp=1592795250655">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/64126815.jpg?ynotemdtimestamp=1592795250655">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/27972244.jpg?ynotemdtimestamp=1592795250655">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/98217046.jpg?ynotemdtimestamp=1592795250655">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/56651827.jpg?ynotemdtimestamp=1592795250655">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/3923690.jpg?ynotemdtimestamp=1592795250655">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/82638527.jpg?ynotemdtimestamp=1592795250655">
+<meta property="og:image" content="https://ycn6666.github.io/.io//..%5Cimages%5Cimage-3.png">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/26422942.jpg?ynotemdtimestamp=1592795250655">
+<meta property="og:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/54109731.jpg?ynotemdtimestamp=1592795250655">
+<meta property="article:published_time" content="2020-06-22T02:25:24.000Z">
+<meta property="article:modified_time" content="2020-06-22T07:55:48.449Z">
 <meta property="article:author" content="Yang C">
+<meta property="article:tag" content="Pytest">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/78005817.jpg?ynotemdtimestamp=1592795250655">
 
-<link rel="canonical" href="https://ycn6666.github.io/2020/05/28/selenium%E5%B8%B8%E7%94%A8Api/">
+<link rel="canonical" href="https://ycn6666.github.io/2020/06/22/pytest%E7%9A%84%E5%AE%89%E8%A3%85/">
 
 
 <script id="page-configurations">
@@ -45,7 +58,7 @@
   };
 </script>
 
-  <title>selenium常用Api | 有情怀的学习网站</title>
+  <title>Pytest+allure环境搭建(一) | 有情怀的学习网站</title>
   
 
 
@@ -194,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://ycn6666.github.io/2020/05/28/selenium%E5%B8%B8%E7%94%A8Api/">
+    <link itemprop="mainEntityOfPage" href="https://ycn6666.github.io/2020/06/22/pytest%E7%9A%84%E5%AE%89%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/1.jpg">
@@ -207,7 +220,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          selenium常用Api
+          Pytest+allure环境搭建(一)
         </h1>
 
         <div class="post-meta">
@@ -216,8 +229,18 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-05-28 13:58:52" itemprop="dateCreated datePublished" datetime="2020-05-28T13:58:52+08:00">2020-05-28</time>
+              <time title="创建时间：2020-06-22 10:25:24 / 修改时间：15:55:48" itemprop="dateCreated datePublished" datetime="2020-06-22T10:25:24+08:00">2020-06-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytest/" itemprop="url" rel="index"><span itemprop="name">Pytest</span></a>
+                </span>
             </span>
 
           <br>
@@ -226,7 +249,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>42</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -245,9 +268,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>selenium常用Api</p>
-<p>一、获取各个属性值</p>
-<p>1、driver.current_url</p>
+        <h1 id="Pytest加allure环境搭建"><a href="#Pytest加allure环境搭建" class="headerlink" title="Pytest加allure环境搭建"></a>Pytest加allure环境搭建</h1><h3 id="pytest的安装"><a href="#pytest的安装" class="headerlink" title="pytest的安装:"></a>pytest的安装:</h3><p>windows下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pytest</span><br></pre></td></tr></table></figure>
+
+<p>linux下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pytest</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装pytest-allure-adaptor插件"><a href="#安装pytest-allure-adaptor插件" class="headerlink" title="安装pytest-allure-adaptor插件"></a>安装pytest-allure-adaptor插件</h3><p>windows下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pytest-allure-adaptor</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="allure的安装"><a href="#allure的安装" class="headerlink" title="allure的安装:"></a>allure的安装:</h3><p>windows下:</p>
+<p>前情提示： allure是基于<code>Java</code>的一个程序，需要Java1.8的环境，没有安装需要去安装一下。</p>
+<p><a href="https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.7.0/allure-2.7.0.zip" target="_blank" rel="noopener">Windows下不能直接安装，点击此链接下载压缩包</a></p>
+<p>下载之后，将压缩包解压到一个磁盘中，我这里用的是<code>F</code>盘</p>
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/78005817.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
+<p>配置allure的环境变量</p>
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/10734144.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/64126815.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
+<p>点击确定，保存。这样就可以通过CMD使用allure命令</p>
+<p>pycharm新建一个test_demo.py文件，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import allure</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@allure.MASTER_HELPER.feature(&quot;测试Dome&quot;)</span><br><span class="line">class TestDome(object):</span><br><span class="line"></span><br><span class="line">    @allure.MASTER_HELPER.step(&quot;定义被测函数&quot;)</span><br><span class="line">    def func(self, x):</span><br><span class="line">        return x+1</span><br><span class="line"></span><br><span class="line">    @allure.MASTER_HELPER.story(&quot;被测场景&quot;)</span><br><span class="line">    @allure.MASTER_HELPER.severity(&quot;blocker&quot;)</span><br><span class="line">    @allure.MASTER_HELPER.step(&quot;断言结果&quot;)</span><br><span class="line">    def test_func(self):</span><br><span class="line">        # with allure.MASTER_HELPER.step(&quot;断言结果&quot;):</span><br><span class="line">        allure.MASTER_HELPER.attach(&quot;预期结果&quot;, &quot;&#123;&#125;&quot;.format(self.func(3)))</span><br><span class="line">        allure.MASTER_HELPER.attach(&quot;实际结果&quot;, &quot;&#123;&#125;&quot;.format(5))</span><br><span class="line">        assert self.func(3) &#x3D;&#x3D; 5</span><br></pre></td></tr></table></figure>
+
+<p>在pycharm中打开terminal</p>
+<p>输入命令 <code>pytest -s --alluredir=report</code>，会遇到以下这个错误：</p>
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/27972244.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
+<p>进入allure下面的utils文件，修改以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># utils文件，可以通过from allure import utlis进入</span><br><span class="line"></span><br><span class="line">for suitable_name in suitable_names:</span><br><span class="line">            # markers.append(item.get_marker(suitable_name))</span><br><span class="line">            markers.append(item.get_closest_marker(suitable_name))</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/98217046.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
+<p>修改之后，再次运行<code>pytest -s --alluredir=report</code>命令：</p>
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/56651827.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
+<p>运行后，无上述错误，同时会生成一个report文件。其中会有一个xml格式的报告:</p>
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/3923690.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/82638527.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
+<p>当然xml格式的报告不够直观，我们需要通过allure将它转成HTML格式的报告。通过cmd命令cd到report的根目录下，执行<code>allure generate --clean report</code></p>
+<p>回到根目录下，会生成一个allure-report的文件夹，在pycharm中打开文件夹，点击index.html运行</p>
+<p><img src="/.io//..%5Cimages%5Cimage-3.png" alt="image-20200622111338731"></p>
+<p>ok，到此为止。可以看到我们的精美的测试报告了</p>
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/26422942.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
+<p><img src="http://pythonbooks.oss-cn-beijing.aliyuncs.com/18-9-14/54109731.jpg?ynotemdtimestamp=1592795250655" alt="img"></p>
 
     </div>
 
@@ -256,6 +317,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pytest/" rel="tag"># Pytest</a>
+          </div>
 
         
 
@@ -263,12 +327,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/05/26/selenium/" rel="prev" title="Selenium3工作原理及环境搭建">
-      <i class="fa fa-chevron-left"></i> Selenium3工作原理及环境搭建
+    <a href="/2020/05/29/Pycharm2020%E7%89%88%E6%9C%AC%E6%BF%80%E6%B4%BB/" rel="prev" title="Pycharm2020版本激活">
+      <i class="fa fa-chevron-left"></i> Pycharm2020版本激活
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/05/29/Pycharm2020%E7%89%88%E6%9C%AC%E6%BF%80%E6%B4%BB/" rel="next" title="Pycharm2020版本激活">
-      Pycharm2020版本激活 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/06/22/Pytest%E7%9A%84%E7%AE%80%E5%8D%95%E8%BF%90%E8%A1%8C/" rel="next" title="Pytest的简单运行(二)">
+      Pytest的简单运行(二) <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -328,6 +392,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytest加allure环境搭建"><span class="nav-number">1.</span> <span class="nav-text">Pytest加allure环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pytest的安装"><span class="nav-number">1.0.1.</span> <span class="nav-text">pytest的安装:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装pytest-allure-adaptor插件"><span class="nav-number">1.0.2.</span> <span class="nav-text">安装pytest-allure-adaptor插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allure的安装"><span class="nav-number">1.0.3.</span> <span class="nav-text">allure的安装:</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

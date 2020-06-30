@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ycn6666.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Pytest断言断言语句是什么？断言语句是将调试断言插入程序的便捷方式： 1assert_stmt :: &#x3D;“assert” expression[“，” expression]  简单的形式， 相当于assert expression 12if __debug__:    if not expression: raise AssertionError  上述代码的意思是，当assert">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytest断言(五)">
+<meta property="og:url" content="https://ycn6666.github.io/2020/06/22/Pytest%E6%96%AD%E8%A8%80/index.html">
+<meta property="og:site_name" content="有情怀的学习网站">
+<meta property="og:description" content="Pytest断言断言语句是什么？断言语句是将调试断言插入程序的便捷方式： 1assert_stmt :: &#x3D;“assert” expression[“，” expression]  简单的形式， 相当于assert expression 12if __debug__:    if not expression: raise AssertionError  上述代码的意思是，当assert">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-22T05:25:24.000Z">
+<meta property="article:modified_time" content="2020-06-22T06:38:42.395Z">
+<meta property="article:author" content="Yang C">
+<meta property="article:tag" content="Pytest">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ycn6666.github.io/2020/06/22/Pytest%E6%96%AD%E8%A8%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Pytest断言(五) | 有情怀的学习网站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">有情怀的学习网站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Together</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ycn6666.github.io/2020/06/22/Pytest%E6%96%AD%E8%A8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Yang C">
+      <meta itemprop="description" content="有情怀的知识体系构建">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="有情怀的学习网站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pytest断言(五)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-22 13:25:24 / 修改时间：14:38:42" itemprop="dateCreated datePublished" datetime="2020-06-22T13:25:24+08:00">2020-06-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytest/" itemprop="url" rel="index"><span itemprop="name">Pytest</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Pytest断言"><a href="#Pytest断言" class="headerlink" title="Pytest断言"></a>Pytest断言</h1><p>断言语句是什么？断言语句是将调试断言插入程序的便捷方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert_stmt :: &#x3D;“assert” expression[“，” expression]</span><br></pre></td></tr></table></figure>
+
+<p>简单的形式， 相当于<code>assert expression</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if __debug__:</span><br><span class="line">    if not expression: raise AssertionError</span><br></pre></td></tr></table></figure>
+
+<p>上述代码的意思是，当<code>assert expression</code>为假的时候，就抛出一个异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 栗子</span><br><span class="line">girl &#x3D; False</span><br><span class="line"></span><br><span class="line"># 判断这个人是不是女生</span><br><span class="line">def assert_girl(expression):</span><br><span class="line"></span><br><span class="line">    if not expression:</span><br><span class="line">        raise AssertionError</span><br><span class="line"></span><br><span class="line">assert_girl(girl)</span><br></pre></td></tr></table></figure>
+
+<p>这个栗子会抛出一个<code>AssertionError</code>的异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">D:\Python34\python.exe C:&#x2F;Users&#x2F;lenovo&#x2F;Desktop&#x2F;pytest学习&#x2F;pytest1&#x2F;test_add.py</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;C:&#x2F;Users&#x2F;lenovo&#x2F;Desktop&#x2F;pytest学习&#x2F;pytest1&#x2F;test_add.py&quot;, line 26, in &lt;module&gt;</span><br><span class="line">    assert_girl(girl)</span><br><span class="line">  File &quot;C:&#x2F;Users&#x2F;lenovo&#x2F;Desktop&#x2F;pytest学习&#x2F;pytest1&#x2F;test_add.py&quot;, line 24, in assert_girl</span><br><span class="line">    raise AssertionError</span><br><span class="line">AssertionError</span><br></pre></td></tr></table></figure>
+
+<p>拓展形式，相当于<code>assert expression1,expression2</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if __debug__:</span><br><span class="line">    if not expression1: raise AssertionError(expression2)</span><br></pre></td></tr></table></figure>
+
+<p>上诉代码的意思是当<code>assert expression1,expression2</code>为假的时候，就会抛出一个异常。我们最常使用就是这种拓展形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 判断2个数是否相等</span><br><span class="line">def assert_num(expression1, expression2):</span><br><span class="line"></span><br><span class="line">    expression &#x3D; expression1 &#x3D;&#x3D; expression2</span><br><span class="line">    if not expression:</span><br><span class="line">        raise AssertionError</span><br><span class="line"></span><br><span class="line">assert_num(1, 2)</span><br></pre></td></tr></table></figure>
+
+<p>同样这个栗子也会抛出一个异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;C:&#x2F;Users&#x2F;lenovo&#x2F;Desktop&#x2F;pytest学习&#x2F;pytest1&#x2F;test_add.py&quot;, line 24, in &lt;module&gt;</span><br><span class="line">    assert_num(1, 2)</span><br><span class="line">  File &quot;C:&#x2F;Users&#x2F;lenovo&#x2F;Desktop&#x2F;pytest学习&#x2F;pytest1&#x2F;test_add.py&quot;, line 22, in assert_num</span><br><span class="line">    raise AssertionError</span><br><span class="line">AssertionError</span><br></pre></td></tr></table></figure>
+
+<h3 id="断言的使用"><a href="#断言的使用" class="headerlink" title="断言的使用"></a>断言的使用</h3><ul>
+<li>断言，一般是用来帮忙我们，确定一个结果是不是正确。如果不是，就需要它抛出一个异常来告诉我们，这个结果是错误的。</li>
+<li>在pytest中，不需要是用<code>self.assert.*</code>的形式来进行断言。只需要<code>assert</code>内置函数就可以直接进行断言。降低了我们对断言学习成本</li>
+<li><code>assert</code>后面可以接表达式，如<code>assert 1==2</code>，其实就是我们上面所说的拓展模式的断言。</li>
+</ul>
+<p>现在我们对一个登录接口进行断言，先创建一个<code>test_login</code>的py文件。定义一个<code>login</code>的接口，和<code>test_login</code>的用例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 登录接口</span><br><span class="line">def login(username, password):</span><br><span class="line"></span><br><span class="line">    # 在这里，我就不做数据库查询了,只是举一个简单的例子,只要用户名和密码传值，就算登录成功</span><br><span class="line">    if username or password:</span><br><span class="line">        return &#123;&quot;message&quot;:&quot;登录成功&quot;, &quot;code&quot;: 0&#125;</span><br><span class="line">    else:</span><br><span class="line">        return &#123;&quot;message&quot;:&quot;账号或密码错误&quot;, &quot;code&quot;: 400&#125;</span><br><span class="line"></span><br><span class="line"># 接口测试用例</span><br><span class="line">def test_login():</span><br><span class="line"></span><br><span class="line">    res &#x3D; login(&quot;admin&quot;, &quot;123456&quot;)</span><br><span class="line">    assert res[&#39;code&#39;] &#x3D;&#x3D; 1</span><br></pre></td></tr></table></figure>
+
+<p>在cmd运行测试用例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\lenovo\Desktop\pytest学习&gt;pytest                                                                                                                                                                                            </span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; test session starts &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">platform win32 -- Python 3.4.4, pytest-3.8.0, py-1.6.0, pluggy-0.7.1</span><br><span class="line">rootdir: C:\Users\lenovo\Desktop\pytest学习, inifile:                                                                                                                                                                                </span><br><span class="line">plugins: celery-4.2.1, allure-adaptor-1.7.10, html-1.19.0, metadata-1.7.0</span><br><span class="line">collected 1 item                                                               </span><br><span class="line"></span><br><span class="line">pytest1\test_add.py F                                                    [100%]</span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FAILURES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">_________________________________ test_login __________________________________</span><br><span class="line"></span><br><span class="line">    def test_login():</span><br><span class="line">    </span><br><span class="line">        res &#x3D; login(&quot;admin&quot;, &quot;123456&quot;)</span><br><span class="line">&gt;       assert res[&#39;code&#39;] &#x3D;&#x3D; 1</span><br><span class="line">E       assert 0 &#x3D;&#x3D; 1</span><br><span class="line"></span><br><span class="line">pytest1\test_add.py:30: AssertionError</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 1 failed in 0.20 seconds &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pytest/" rel="tag"># Pytest</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/22/Pytest%E6%89%A7%E8%A1%8C%E7%94%A8%E4%BE%8B%E8%A7%84%E5%88%99/" rel="prev" title="Pytest执行参数(四)">
+      <i class="fa fa-chevron-left"></i> Pytest执行参数(四)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/22/pytest%E5%89%8D%E5%90%8E%E7%BD%AE%E6%96%B9%E6%B3%95/" rel="next" title="Pytest前后置方法(六)">
+      Pytest前后置方法(六) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytest断言"><span class="nav-number">1.</span> <span class="nav-text">Pytest断言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#断言的使用"><span class="nav-number">1.0.1.</span> <span class="nav-text">断言的使用</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang C"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Yang C</p>
+  <div class="site-description" itemprop="description">有情怀的知识体系构建</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang C</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">19 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

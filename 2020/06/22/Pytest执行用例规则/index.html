@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ycn6666.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="pytest执行参数一、执行方式 cmd执行pytest用例有三种方法,以下三种方法都可以，一般推荐第一个  pytest py.test python -m pytest  默认执行文件夹下所有符合条件的用例 2. 执行规则和参数1.执行某个目录下所有的用例 pytest 文件名&#x2F; 2.执行某一个py文件下用例 pytest 脚本名称.py 3.运行过程中执行打印函数pytest -s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytest执行参数(四)">
+<meta property="og:url" content="https://ycn6666.github.io/2020/06/22/Pytest%E6%89%A7%E8%A1%8C%E7%94%A8%E4%BE%8B%E8%A7%84%E5%88%99/index.html">
+<meta property="og:site_name" content="有情怀的学习网站">
+<meta property="og:description" content="pytest执行参数一、执行方式 cmd执行pytest用例有三种方法,以下三种方法都可以，一般推荐第一个  pytest py.test python -m pytest  默认执行文件夹下所有符合条件的用例 2. 执行规则和参数1.执行某个目录下所有的用例 pytest 文件名&#x2F; 2.执行某一个py文件下用例 pytest 脚本名称.py 3.运行过程中执行打印函数pytest -s">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ycn6666.github.io/.io//..%5Cimages%5Cimage-4.png">
+<meta property="article:published_time" content="2020-06-22T03:25:24.000Z">
+<meta property="article:modified_time" content="2020-06-22T07:59:06.755Z">
+<meta property="article:author" content="Yang C">
+<meta property="article:tag" content="Pytest">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ycn6666.github.io/.io//..%5Cimages%5Cimage-4.png">
+
+<link rel="canonical" href="https://ycn6666.github.io/2020/06/22/Pytest%E6%89%A7%E8%A1%8C%E7%94%A8%E4%BE%8B%E8%A7%84%E5%88%99/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Pytest执行参数(四) | 有情怀的学习网站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">有情怀的学习网站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Together</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ycn6666.github.io/2020/06/22/Pytest%E6%89%A7%E8%A1%8C%E7%94%A8%E4%BE%8B%E8%A7%84%E5%88%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Yang C">
+      <meta itemprop="description" content="有情怀的知识体系构建">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="有情怀的学习网站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pytest执行参数(四)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-22 11:25:24 / 修改时间：15:59:06" itemprop="dateCreated datePublished" datetime="2020-06-22T11:25:24+08:00">2020-06-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytest/" itemprop="url" rel="index"><span itemprop="name">Pytest</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="pytest执行参数"><a href="#pytest执行参数" class="headerlink" title="pytest执行参数"></a>pytest执行参数</h1><p>一、执行方式</p>
+<p>cmd执行pytest用例有三种方法,以下三种方法都可以，一般推荐第一个</p>
+<ul>
+<li><strong>pytest</strong></li>
+<li><strong>py.test</strong></li>
+<li><strong>python -m pytest</strong></li>
+</ul>
+<p>默认执行文件夹下所有符合条件的用例</p>
+<h4 id="2-执行规则和参数"><a href="#2-执行规则和参数" class="headerlink" title="2. 执行规则和参数"></a>2. 执行规则和参数</h4><h5 id="1-执行某个目录下所有的用例"><a href="#1-执行某个目录下所有的用例" class="headerlink" title="1.执行某个目录下所有的用例"></a>1.执行某个目录下所有的用例</h5><p> <code>pytest</code> 文件名/</p>
+<h5 id="2-执行某一个py文件下用例"><a href="#2-执行某一个py文件下用例" class="headerlink" title="2.执行某一个py文件下用例"></a>2.执行某一个py文件下用例</h5><p> <code>pytest</code> 脚本名称.py</p>
+<h5 id="3-运行过程中执行打印函数"><a href="#3-运行过程中执行打印函数" class="headerlink" title="3.运行过程中执行打印函数"></a>3.运行过程中执行打印函数</h5><p>pytest -s</p>
+<a id="more"></a>
+
+<h5 id="4-收集将要执行的用例，但不会执行"><a href="#4-收集将要执行的用例，但不会执行" class="headerlink" title="4.收集将要执行的用例，但不会执行"></a>4.收集将要执行的用例，但不会执行</h5><p>pytest –collcet-onty</p>
+<h5 id="5-k-按关键字匹配（关键字可以是py文件名也可以是函数名，若py文件名和函数均包含-则需要严格指定-xx-py-以运行py文件）"><a href="#5-k-按关键字匹配（关键字可以是py文件名也可以是函数名，若py文件名和函数均包含-则需要严格指定-xx-py-以运行py文件）" class="headerlink" title="5.-k 按关键字匹配（关键字可以是py文件名也可以是函数名，若py文件名和函数均包含 则需要严格指定 xx.py 以运行py文件）"></a>5.-k 按关键字匹配（关键字可以是py文件名也可以是函数名，若py文件名和函数均包含 则需要严格指定 xx.py 以运行py文件）</h5><p> <code>pytest -k</code> “MyClass and not method”</p>
+<h5 id="6-按节点运行"><a href="#6-按节点运行" class="headerlink" title="6.按节点运行"></a>6.按节点运行</h5><p> 运行.py模块里面的某个函数</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pytest</span> <span class="selector-tag">test_mod</span><span class="selector-class">.py</span><span class="selector-pseudo">::test_func</span></span><br></pre></td></tr></table></figure>
+
+<p>运行.py模块里面,测试类里面的某个方法</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pytest</span> <span class="selector-tag">test_mod</span><span class="selector-class">.py</span><span class="selector-pseudo">::TestClass</span><span class="selector-pseudo">::test_method</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="7-标记表达式"><a href="#7-标记表达式" class="headerlink" title="7.标记表达式"></a>7.标记表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest -m slow</span><br></pre></td></tr></table></figure>
+
+<p>将运行用<code>@ pytest.mark.slow</code>装饰器修饰的所有测试。</p>
+<h5 id="8-从包里面运行"><a href="#8-从包里面运行" class="headerlink" title="8.从包里面运行"></a>8.从包里面运行</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pytest</span> —<span class="selector-tag">pyargs</span> <span class="selector-tag">pkg</span><span class="selector-class">.testing</span></span><br></pre></td></tr></table></figure>
+
+<p>这将导入<code>pkg.testing</code>并使用其文件系统位置来查找和运行测试。</p>
+<h5 id="9-pytest-x-遇到错误时停止测试"><a href="#9-pytest-x-遇到错误时停止测试" class="headerlink" title="9.pytest -x( 遇到错误时停止测试)"></a>9.pytest -x( 遇到错误时停止测试)</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pytest</span> <span class="selector-tag">-x</span> <span class="selector-tag">test_class</span><span class="selector-class">.py</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="10-pytest-maxfail-num-当用例错误个数达到指定数量时，停止测试"><a href="#10-pytest-maxfail-num-当用例错误个数达到指定数量时，停止测试" class="headerlink" title="10.pytest -maxfail=num(当用例错误个数达到指定数量时，停止测试)"></a>10.pytest -maxfail=num(当用例错误个数达到指定数量时，停止测试)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest —maxfail&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<h5 id="11-参数：-l-或–showlocals"><a href="#11-参数：-l-或–showlocals" class="headerlink" title="11.参数：-l 或–showlocals"></a>11.参数：-l 或–showlocals</h5><p>用例运行失败时，打印相关的局部变量，pytest -l</p>
+<h5 id="12-参数：–lf-–last-failed"><a href="#12-参数：–lf-–last-failed" class="headerlink" title="12.参数：–lf / –last-failed"></a>12.参数：–lf / –last-failed</h5><p>只执行上次执行失败的测试</p>
+<h5 id="13-参数：–ff-–failed-first"><a href="#13-参数：–ff-–failed-first" class="headerlink" title="13.参数：–ff / –failed-first"></a>13.参数：–ff / –failed-first</h5><p>先执行完上次失败的测试后，再执行上次正常的测试</p>
+<h5 id="14-参数：–durations-num-vv（num为0时则倒序显示所有的用例，为具体值则显示耗时最长的对应该数量的用例，-vv-显示持续时间为0秒的用例）"><a href="#14-参数：–durations-num-vv（num为0时则倒序显示所有的用例，为具体值则显示耗时最长的对应该数量的用例，-vv-显示持续时间为0秒的用例）" class="headerlink" title="14.参数：–durations=num -vv（num为0时则倒序显示所有的用例，为具体值则显示耗时最长的对应该数量的用例，-vv 显示持续时间为0秒的用例）"></a>14.参数：–durations=num -vv（num为0时则倒序显示所有的用例，为具体值则显示耗时最长的对应该数量的用例，-vv 显示持续时间为0秒的用例）</h5><p>会按用例执行耗时时长：从长到短 显示结果，用于调优测试代码</p>
+<p>比如显示运行耗时最长的3个用例且包含持续时间为0秒的：pytest –durations=3 -vv</p>
+<h5 id="15-参数：-r-option"><a href="#15-参数：-r-option" class="headerlink" title="15.参数：-r option"></a>15.参数：-r option</h5><p> 生成简略的指定需求的报告</p>
+<h5 id="16-参数-q"><a href="#16-参数-q" class="headerlink" title="16.参数-q"></a>16.参数-q</h5><p>pytest -q 说明：简化控制台的输出，用两个..点代替了pass结果</p>
+<h4 id="3-pycharm配置pytest"><a href="#3-pycharm配置pytest" class="headerlink" title="3. pycharm配置pytest"></a>3. pycharm配置pytest</h4><p>以pytest方式运行，需要改该工程设置默认的运行器：file-&gt;Setting-&gt;Tools-&gt;Python Integrated Tools-&gt;项目名称-&gt;Default test runner-&gt;选择pytes</p>
+<p><img src="/.io//..%5Cimages%5Cimage-4.png" alt="image-20200622142501975"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pytest/" rel="tag"># Pytest</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/22/Pytest%E8%BF%90%E8%A1%8C%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6/" rel="prev" title="Pytest文件命名规则(三)">
+      <i class="fa fa-chevron-left"></i> Pytest文件命名规则(三)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/22/Pytest%E6%96%AD%E8%A8%80/" rel="next" title="Pytest断言(五)">
+      Pytest断言(五) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pytest执行参数"><span class="nav-number">1.</span> <span class="nav-text">pytest执行参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-执行规则和参数"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">2. 执行规则和参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-执行某个目录下所有的用例"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">1.执行某个目录下所有的用例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-执行某一个py文件下用例"><span class="nav-number">1.0.0.1.2.</span> <span class="nav-text">2.执行某一个py文件下用例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-运行过程中执行打印函数"><span class="nav-number">1.0.0.1.3.</span> <span class="nav-text">3.运行过程中执行打印函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-收集将要执行的用例，但不会执行"><span class="nav-number">1.0.0.1.4.</span> <span class="nav-text">4.收集将要执行的用例，但不会执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-k-按关键字匹配（关键字可以是py文件名也可以是函数名，若py文件名和函数均包含-则需要严格指定-xx-py-以运行py文件）"><span class="nav-number">1.0.0.1.5.</span> <span class="nav-text">5.-k 按关键字匹配（关键字可以是py文件名也可以是函数名，若py文件名和函数均包含 则需要严格指定 xx.py 以运行py文件）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-按节点运行"><span class="nav-number">1.0.0.1.6.</span> <span class="nav-text">6.按节点运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-标记表达式"><span class="nav-number">1.0.0.1.7.</span> <span class="nav-text">7.标记表达式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-从包里面运行"><span class="nav-number">1.0.0.1.8.</span> <span class="nav-text">8.从包里面运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-pytest-x-遇到错误时停止测试"><span class="nav-number">1.0.0.1.9.</span> <span class="nav-text">9.pytest -x( 遇到错误时停止测试)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-pytest-maxfail-num-当用例错误个数达到指定数量时，停止测试"><span class="nav-number">1.0.0.1.10.</span> <span class="nav-text">10.pytest -maxfail&#x3D;num(当用例错误个数达到指定数量时，停止测试)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-参数：-l-或–showlocals"><span class="nav-number">1.0.0.1.11.</span> <span class="nav-text">11.参数：-l 或–showlocals</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-参数：–lf-–last-failed"><span class="nav-number">1.0.0.1.12.</span> <span class="nav-text">12.参数：–lf &#x2F; –last-failed</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-参数：–ff-–failed-first"><span class="nav-number">1.0.0.1.13.</span> <span class="nav-text">13.参数：–ff &#x2F; –failed-first</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-参数：–durations-num-vv（num为0时则倒序显示所有的用例，为具体值则显示耗时最长的对应该数量的用例，-vv-显示持续时间为0秒的用例）"><span class="nav-number">1.0.0.1.14.</span> <span class="nav-text">14.参数：–durations&#x3D;num -vv（num为0时则倒序显示所有的用例，为具体值则显示耗时最长的对应该数量的用例，-vv 显示持续时间为0秒的用例）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-参数：-r-option"><span class="nav-number">1.0.0.1.15.</span> <span class="nav-text">15.参数：-r option</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#16-参数-q"><span class="nav-number">1.0.0.1.16.</span> <span class="nav-text">16.参数-q</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-pycharm配置pytest"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">3. pycharm配置pytest</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang C"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Yang C</p>
+  <div class="site-description" itemprop="description">有情怀的知识体系构建</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang C</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">19 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

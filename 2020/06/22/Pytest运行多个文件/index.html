@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ycn6666.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Pytest运行多个文件文件命名规则在执行测试用例之前，我们需要先了解一下pytest中的文件命名规则。  pytest会从当前目录向下递归寻找，以test_*.py开头或以*_test.py结尾的文件。把他们当做测试文件。  在这些文件中，pytest 会提取当中以下的函数或者方法。  以Test开头，不包含__init__方法的类，其中的以test_开头的函数或方法。 文件中的以test_开头">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytest文件命名规则(三)">
+<meta property="og:url" content="https://ycn6666.github.io/2020/06/22/Pytest%E8%BF%90%E8%A1%8C%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="有情怀的学习网站">
+<meta property="og:description" content="Pytest运行多个文件文件命名规则在执行测试用例之前，我们需要先了解一下pytest中的文件命名规则。  pytest会从当前目录向下递归寻找，以test_*.py开头或以*_test.py结尾的文件。把他们当做测试文件。  在这些文件中，pytest 会提取当中以下的函数或者方法。  以Test开头，不包含__init__方法的类，其中的以test_开头的函数或方法。 文件中的以test_开头">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-22T03:25:24.000Z">
+<meta property="article:modified_time" content="2020-06-22T06:28:46.723Z">
+<meta property="article:author" content="Yang C">
+<meta property="article:tag" content="Pytest">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ycn6666.github.io/2020/06/22/Pytest%E8%BF%90%E8%A1%8C%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Pytest文件命名规则(三) | 有情怀的学习网站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">有情怀的学习网站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Together</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ycn6666.github.io/2020/06/22/Pytest%E8%BF%90%E8%A1%8C%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/1.jpg">
+      <meta itemprop="name" content="Yang C">
+      <meta itemprop="description" content="有情怀的知识体系构建">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="有情怀的学习网站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pytest文件命名规则(三)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-22 11:25:24 / 修改时间：14:28:46" itemprop="dateCreated datePublished" datetime="2020-06-22T11:25:24+08:00">2020-06-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Pytest/" itemprop="url" rel="index"><span itemprop="name">Pytest</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Pytest运行多个文件"><a href="#Pytest运行多个文件" class="headerlink" title="Pytest运行多个文件"></a>Pytest运行多个文件</h1><h3 id="文件命名规则"><a href="#文件命名规则" class="headerlink" title="文件命名规则"></a>文件命名规则</h3><p>在执行测试用例之前，我们需要先了解一下<code>pytest</code>中的文件命名规则。</p>
+<ul>
+<li><p>pytest会从当前目录向下递归寻找，以<code>test_*.py</code>开头或以<code>*_test.py</code>结尾的文件。把他们当做测试文件。</p>
+</li>
+<li><p>在这些文件中，pytest</p>
+<p>会提取当中以下的函数或者方法。</p>
+<ul>
+<li>以<code>Test</code>开头，不包含<code>__init__</code>方法的类，其中的以<code>test_</code>开头的函数或方法。</li>
+<li>文件中的以<code>test_</code>开头的函数。</li>
+</ul>
+</li>
+<li><p><code>pytest</code>还支持<code>unittest.TestCase</code>的方式来加载测试用例。</p>
+<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="在一个类中运行多个用例"><a href="#在一个类中运行多个用例" class="headerlink" title="在一个类中运行多个用例"></a>在一个类中运行多个用例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># content of test_class.py</span><br><span class="line">class TestClass(object):</span><br><span class="line">    def test_one(self):</span><br><span class="line">        x &#x3D; &quot;this&quot;</span><br><span class="line">        assert &#39;h&#39; in x</span><br><span class="line"></span><br><span class="line">    def test_two(self):</span><br><span class="line">        x &#x3D; &quot;hello&quot;</span><br><span class="line">        assert hasattr(x, &#39;check&#39;)</span><br></pre></td></tr></table></figure>
+
+<p><code>pytest</code>会发现遵循命名规则的所有测试，因此它找到两个<code>test_</code>前缀函数。没有必要继承任何东西。我们可以通过传递文件名来运行模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest -q test_class.py</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ pytest -q test_class.py</span><br><span class="line">.F                                                                   [100%]</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FAILURES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">____________________________ TestClass.test_two ____________________________</span><br><span class="line"></span><br><span class="line">self &#x3D; &lt;test_class.TestClass object at 0xdeadbeef&gt;</span><br><span class="line"></span><br><span class="line">    def test_two(self):</span><br><span class="line">        x &#x3D; &quot;hello&quot;</span><br><span class="line">&gt;       assert hasattr(x, &#39;check&#39;)</span><br><span class="line">E       AssertionError: assert False</span><br><span class="line">E        +  where False &#x3D; hasattr(&#39;hello&#39;, &#39;check&#39;)</span><br><span class="line"></span><br><span class="line">test_class.py:8: AssertionError</span><br><span class="line">1 failed, 1 passed in 0.12 seconds</span><br></pre></td></tr></table></figure>
+
+<p>同时<code>pytest</code>对<code>unittest</code>的也是支持的。首先创建一个<code>test_unittest_case.py</code>，示例代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># test_uniitest_case.py</span><br><span class="line">import unittest</span><br><span class="line">class Test(unittest.TestCase):</span><br><span class="line"></span><br><span class="line">    def test_1(self):</span><br><span class="line">        assert 1 &#x3D;&#x3D; 3</span><br><span class="line"></span><br><span class="line">    def test_2(self):</span><br><span class="line">        assert 2 &#x3D;&#x3D; abs(-2)</span><br></pre></td></tr></table></figure>
+
+<p>然后命令行进入到<code>test_unittest_case.py</code>的所在目录。执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest -q test_unittest_case.py</span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\lenovo\Desktop\pytest学习\pytest1&gt;pytest -q test_unittest_case.py                                                                                                                                                                </span><br><span class="line">F.                                                                       [100%]</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FAILURES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">_________________________________ Test.test_1 _________________________________</span><br><span class="line"></span><br><span class="line">self &#x3D; &lt;test_unittest_case.Test testMethod&#x3D;test_1&gt;</span><br><span class="line"></span><br><span class="line">    def test_1(self):</span><br><span class="line">&gt;       assert 1 &#x3D;&#x3D; 3</span><br><span class="line">E       AssertionError: assert 1 &#x3D;&#x3D; 3</span><br><span class="line"></span><br><span class="line">test_register.py:26: AssertionError</span><br><span class="line">1 failed, 1 passed in 0.10 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行多个文件"><a href="#运行多个文件" class="headerlink" title="运行多个文件"></a>运行多个文件</h3><p>在实际测试过程中，我们会有多个测试文件，所以需要对多文件进行批量测试。</p>
+<p>如登录和注册接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test_login.py # 登录业务测试</span><br><span class="line">test_register.py # 注册业务测试</span><br></pre></td></tr></table></figure>
+
+<p>用例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># test_login.py</span><br><span class="line">def login(username, password):</span><br><span class="line"></span><br><span class="line">    # 在这里，我就不做数据库查询了,只是举一个简单的例子,只要用户名和密码传值，就算登录成功</span><br><span class="line">    if username or password:</span><br><span class="line">        return &#123;&quot;message&quot;:&quot;登录成功&quot;, &quot;code&quot;: 0&#125;</span><br><span class="line">    else:</span><br><span class="line">        return &#123;&quot;message&quot;:&quot;账号或密码错误&quot;, &quot;code&quot;: 400&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def test_login():</span><br><span class="line"></span><br><span class="line">    res &#x3D; login(&quot;admin&quot;, &quot;123456&quot;)</span><br><span class="line">    assert res[&#39;code&#39;] &#x3D;&#x3D; 1</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"># test_register.py</span><br><span class="line">def register(username, password):</span><br><span class="line"></span><br><span class="line">    if username or password:</span><br><span class="line">        return &#123;&quot;message&quot;: &quot;注册成功&quot;, &quot;code&quot;: 0&#125;</span><br><span class="line">    else:</span><br><span class="line">        return &#123;&quot;message&quot;: &quot;账号或密码错误&quot;, &quot;code&quot;: 400&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def test_register():</span><br><span class="line"></span><br><span class="line">    res &#x3D; register(&quot;root&quot;, &quot;123456&quot;)</span><br><span class="line">    assert res.get(&quot;code&quot;) &#x3D;&#x3D; 0</span><br></pre></td></tr></table></figure>
+
+<p>在<code>pytest</code>运行多个文件进行批量测试，也是非常简单的，只需要在当前的根目录下pycharm中的cmd执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\lenovo\Desktop\pytest学习&gt;pytest                                                                                                                                                                                            </span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; test session starts &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">platform win32 -- Python 3.4.4, pytest-3.8.0, py-1.6.0, pluggy-0.7.1</span><br><span class="line">rootdir: C:\Users\lenovo\Desktop\pytest学习, inifile:                                                                                                                                                                                </span><br><span class="line">plugins: celery-4.2.1, allure-adaptor-1.7.10, html-1.19.0, metadata-1.7.0</span><br><span class="line">collected 2 items                                                              </span><br><span class="line"></span><br><span class="line">pytest1\test_login.py F                                                  [ 50%]</span><br><span class="line">pytest1\test_register.py .                                               [100%]</span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; FAILURES &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">_________________________________ test_login __________________________________</span><br><span class="line"></span><br><span class="line">    def test_login():</span><br><span class="line">    </span><br><span class="line">        res &#x3D; login(&quot;admin&quot;, &quot;123456&quot;)</span><br><span class="line">&gt;       assert res[&#39;code&#39;] &#x3D;&#x3D; 1</span><br><span class="line">E       assert 0 &#x3D;&#x3D; 1</span><br><span class="line"></span><br><span class="line">pytest1\test_login.py:30: AssertionError</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 1 failed, 1 passed in 0.22 seconds &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pytest/" rel="tag"># Pytest</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/22/Pytest%E7%9A%84%E7%AE%80%E5%8D%95%E8%BF%90%E8%A1%8C/" rel="prev" title="Pytest的简单运行(二)">
+      <i class="fa fa-chevron-left"></i> Pytest的简单运行(二)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/22/Pytest%E6%89%A7%E8%A1%8C%E7%94%A8%E4%BE%8B%E8%A7%84%E5%88%99/" rel="next" title="Pytest执行参数(四)">
+      Pytest执行参数(四) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytest运行多个文件"><span class="nav-number">1.</span> <span class="nav-text">Pytest运行多个文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件命名规则"><span class="nav-number">1.0.1.</span> <span class="nav-text">文件命名规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在一个类中运行多个用例"><span class="nav-number">1.0.2.</span> <span class="nav-text">在一个类中运行多个用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行多个文件"><span class="nav-number">1.0.3.</span> <span class="nav-text">运行多个文件</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang C"
+      src="/images/1.jpg">
+  <p class="site-author-name" itemprop="name">Yang C</p>
+  <div class="site-description" itemprop="description">有情怀的知识体系构建</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang C</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">19 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
