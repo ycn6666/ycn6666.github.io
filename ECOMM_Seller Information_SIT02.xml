@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="GBK"?>
+<CFX>
+<HEAD>
+		<VER>1.0</VER>
+		<Number>8</Number>
+		<WorkDate>20201014</WorkDate>
+</HEAD>
+<MSG>
+<MessageType>SELLER</MessageType>
+<SellerName>何勤</SellerName>
+<SellerIdentification>440202198311290925</SellerIdentification>	
+<LegalPersonname></LegalPersonname>
+<LegalPersonID></LegalPersonID>
+<BeneficiaryBankName>工商银行</BeneficiaryBankName>
+<BeneficiaryBankBranchCity>上海</BeneficiaryBankBranchCity>
+<BeneficiaryBankBranchName>工商银行上海分行</BeneficiaryBankBranchName>
+<BeneficiaryBankAccountName>何勤</BeneficiaryBankAccountName>
+<BeneficiaryBankAccount>2020081401</BeneficiaryBankAccount>
+<Email>563731187@qq.com</Email>
+<InternalSellerID>A2020122297</InternalSellerID>
+<E-MaketCode>AMZ</E-MaketCode>
+<MessageType>SELLER</MessageType>
+<SellerName>银行接口联调测试企业031</SellerName>
+<SellerIdentification>000000031</SellerIdentification>
+<LegalPersonname>何勤</LegalPersonname>
+<LegalPersonID>440202198311290925</LegalPersonID>
+<BeneficiaryBankName>工商银行</BeneficiaryBankName>
+<BeneficiaryBankBranchCity>上海</BeneficiaryBankBranchCity>
+<BeneficiaryBankBranchName>工商银行上海分行</BeneficiaryBankBranchName>
+<BeneficiaryBankAccountName>银行接口联调测试企业031</BeneficiaryBankAccountName>
+<BeneficiaryBankAccount>2020081402</BeneficiaryBankAccount>
+<Email>563731187@qq.com</Email>
+<InternalSellerID>A2020122296</InternalSellerID>
+<E-MaketCode>AMZ</E-MaketCode>
+</MSG>
+</CFX>
